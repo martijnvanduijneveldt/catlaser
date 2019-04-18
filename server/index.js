@@ -30,21 +30,5 @@ console.log('Press \'space\' to toggle laser');
 console.log('Use arrow keys to move ')
 console.log('')
 
-let direction = 1;
-
-function customMove(){
-  if(states.xAxis <= 0){
-    direction = 1;
-  }else if(states.xAxis >= 180){
-    direction = -1;
-  }
-  if(direction === 1){
-    functions.moveLeft()
-  }else{
-    functions.moveRight()
-  }
-}
-
-setInterval(customMove,100)
 
 

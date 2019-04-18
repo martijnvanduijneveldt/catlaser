@@ -1,13 +1,16 @@
 {
-  "name": "cat-lazer",
+  "name": "cat-laser",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Martijn van Duijneveldt",
+  "contributors":[
+  	"Quentin Bray"
+  ],
+  "license": "MIT",
   "dependencies": {
     "mosca": "^2.8.3",
     "readline": "^1.3.0"

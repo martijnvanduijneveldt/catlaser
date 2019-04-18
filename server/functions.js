@@ -1,6 +1,5 @@
 const server = require('./server');
 const states = require('./states');
-const settings = require('./settings');
 
 server.on('clientConnected', function(client) {
   setTimeout(function(){
@@ -18,17 +17,15 @@ const lastMoves = {
 }
 
 const stepSize = 1;
-const stepInterval = 100;
+const stepInterval = 15;
 
 function toggleLed(){
   states.led = states.led === 0 ? 1 : 0;
   const message = {
-    topic: '/CatLaser/gpio/'+settings.ledPin,
+    topic: 'laser',
     payload: states.led.toString(),
-    qos: 0,
-    retain: false
   };
-  server.publish(message, function() {
+  sendMessage(message, function() {
     console.log('Toggling led');
   });
 }
@@ -88,12 +85,10 @@ function moveXAxis(){
   states.fixed = false;
   lastMoves.xAxis = new Date();
   const message = {
-    topic: '/CatLaser/cmd',
-    payload: "Servo 1 "+settings.xAxisGpio+" "+states.xAxis,
-    qos: 0,
-    retain: false
+    topic: 'servo1',
+    payload: states.xAxis.toString(),
   };
-  server.publish(message);
+  sendMessage(message);
 }
 
 function moveYAxis(){
@@ -104,40 +99,38 @@ function moveYAxis(){
   states.fixed = false;
   lastMoves.yAxis = new Date();
   const message = {
-    topic: '/CatLaser/cmd',
-    payload: "Servo 2 "+settings.yAxisGpio+" "+states.yAxis,
-    qos: 0,
-    retain: false
+    topic: 'servo2',
+    payload: states.yAxis.toString(),
   };
-  server.publish(message);
+  sendMessage(message);
 }
 
 function reset(){
   states.fixed = false;
   const message = {
-    topic: '/CatLaser/gpio/'+settings.ledPin,
+    topic: 'laser',
     payload: states.led.toString(),
-    qos: 0,
-    retain: false
   };
   const message2 = {
-    topic: '/CatLaser/cmd',
-    payload: "Servo 1 "+settings.xAxisGpio+" "+states.xAxis,
-    qos: 0,
-    retain: false
+    topic: 'servo1',
+    payload: states.xAxis.toString(),
   };
   const message3 = {
-    topic: '/CatLaser/cmd',
-    payload: "Servo 2 "+settings.yAxisGpio+" "+states.yAxis,
-    qos: 0,
-    retain: false
+    topic: 'servo2',
+    payload: states.yAxis.toString(),
   };
-  server.publish(message);
-  server.publish(message2);
-  server.publish(message3);
-  console.log('init requested');
+  sendMessage(message);
+  sendMessage(message2);
+  sendMessage(message3);
+  console.log('reset requested');
 }
 module.exports.reset = reset;
+
+function sendMessage(message){
+  message.qos = 0;
+  message.retain = false;
+  server.publish(message);
+}
 
 function fixJitter(){
   if(!states.connected || states.fixed || new Date() - lastMoves.yAxis < 1000 || new Date() - lastMoves.xAxis < 1000){
@@ -149,20 +142,18 @@ function fixJitter(){
 
   // Fixes jitter
 const message1 = {
-  topic: '/CatLaser/cmd',
-  payload: "Servo 1 "+settings.xAxisGpio+" 9000",
+  topic: 'servo1',
+  payload: "9000",
   qos: 0,
   retain: false
 };
-server.publish(message1);
+sendMessage(message1);
   // Fixes jitter
   const message2 = {
-    topic: '/CatLaser/cmd',
-    payload: "Servo 2 "+settings.yAxisGpio+" 9000",
-    qos: 0,
-    retain: false
+    topic: 'servo2',
+    payload: "9000",
   };
-  server.publish(message2);
+  sendMessage(message2);
 }
 
 module.exports.initJitterFix = function(interval){
