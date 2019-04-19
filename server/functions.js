@@ -1,5 +1,7 @@
 const server = require('./server');
 const states = require('./states');
+const os = require( 'os' );
+const networkInterfaces = os.networkInterfaces( );
 
 server.on('clientConnected', function(client) {
   setTimeout(function(){
@@ -18,6 +20,25 @@ const lastMoves = {
 
 const stepSize = 1;
 const stepInterval = 15;
+
+module.exports.logIp = function(){
+  console.log("Your computer has the following ip's :")
+  for(const interfaceName in networkInterfaces){
+    const interfaceIps = networkInterfaces[interfaceName];
+    for(const ip of interfaceIps){
+      if(ip.family === "IPv4"){
+        let ipAddr = ip.address;
+        if(ipAddr === "127.0.0.1"){
+          continue;
+        }
+        while(ipAddr.length < 15){
+          ipAddr += " ";
+        }
+        console.log(ipAddr+" : "+interfaceName)
+      }
+    }
+  }
+}
 
 function toggleLed(){
   states.led = states.led === 0 ? 1 : 0;

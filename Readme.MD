@@ -60,7 +60,7 @@ const char* mqtt_server = "YOUR_MQTT_SERVER_IP_HERE";
 ```
 - `ssid` : SSID of your access point
 - `password` : password of your access point
-- `mqtt_server` : ip of your computer (port 1883 is blocked by default by your windows firewall)
+- `mqtt_server` : ip of your computer (port 1883 is blocked by default by your windows firewall), this can be found on node.js server startup
 
 ## Node.js server
 The node.js server (which includes the mqtt server) can be found in `server` folder.
@@ -68,6 +68,22 @@ You can start the server using :
 ```bash
 npm install
 node index.js
+```
+
+The server will start and show you usefull information
+```
+Press ctrl+c to exit ...
+Press 'r' to reset
+Press 'space' to toggle laser
+Use arrow keys to move
+
+Your computer have the following ip's :
+192.168.56.1    : VirtualBox Host-Only Network
+192.168.40.1    : VMware Network Adapter VMnet8
+10.33.253.166   : Wi-Fi
+
+MQTT server started
+Waiting for ESP ...
 ```
 
 

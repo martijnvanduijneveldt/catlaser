@@ -30,5 +30,6 @@ console.log('Press \'space\' to toggle laser');
 console.log('Use arrow keys to move ')
 console.log('')
 
-
+functions.logIp()
+console.log('')
 
