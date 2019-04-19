@@ -50,7 +50,7 @@ Then, in the `Tools` menu, select the following values:
 * Board type: `LOLIN(WeMos) D1 R2 & mini`
 * Flash size: `4M (no SPIFFS)`
 * CPU Frequency: `160 MHz`
-* Upload Speed : `921600` (go lower if flashing failes)
+* Upload Speed : `921600` (go lower if flashing fails)
 
 Change the following values by your own in `arduino_code/arduino_code.ino`
 ```cpp
