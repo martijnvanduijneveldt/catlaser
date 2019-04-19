@@ -18,6 +18,9 @@ WiFiEventHandler gotIpEventHandler, disconnectedEventHandler;
 Servo myservo1;
 Servo myservo2;
 
+int servo1pin = D3;
+int servo2pin = D7;
+
 int stringToInt( byte* payload, unsigned int length){
   String inString = "";
   for(int i=0;i<length;i++){
@@ -36,26 +39,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(intVal);
 
  if(strcmp(topic,"servo1")== 0){
-    if(intVal >= 9000){
-      Serial.println("Servo 1 detached");
-      myservo1.detach();
-    }else{
-      if(!myservo1.attached()){
-        Serial.println("Servo 1 attached");
-        myservo1.attach();
-      }
+    if(intVal <= 180){
       myservo1.write(intVal);
       delay(15);
     }
  }else if(strcmp(topic,"servo2")== 0){
-    if(intVal >= 9000){
-      Serial.println("Servo 2 detached");
-      myservo2.detach();
-    }else{
-      if(!myservo2.attached()){
-        Serial.println("Servo 2 attached");
-        myservo2.attach();
-      }
+    if(intVal <= 180){
       myservo2.write(intVal);
       delay(15);
     }
@@ -120,6 +109,13 @@ void setup()
 {
  Serial.begin(115200);
  pinMode(D5, OUTPUT);
+ digitalWrite(D5,1);
+
+ myservo1.attach(servo1pin);
+ myservo2.attach(servo2pin);
+
+ myservo1.write(90);
+ myservo2.write(45);
 
  setup_wifi();
 

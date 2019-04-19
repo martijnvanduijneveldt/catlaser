@@ -1,8 +1,5 @@
 const readline = require('readline');
 const functions = require('./functions')
-const states = require("./states");
-
-functions.initJitterFix(100);
 
 readline.emitKeypressEvents(process.stdin);
 process.stdin.setRawMode(true);

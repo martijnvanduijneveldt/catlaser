@@ -152,31 +152,3 @@ function sendMessage(message){
   message.retain = false;
   server.publish(message);
 }
-
-function fixJitter(){
-  if(!states.connected || states.fixed || new Date() - lastMoves.yAxis < 1000 || new Date() - lastMoves.xAxis < 1000){
-    return;
-  }
-  console.log("Disabling servos");
-
-  states.fixed = true;
-
-  // Fixes jitter
-const message1 = {
-  topic: 'servo1',
-  payload: "9000",
-  qos: 0,
-  retain: false
-};
-sendMessage(message1);
-  // Fixes jitter
-  const message2 = {
-    topic: 'servo2',
-    payload: "9000",
-  };
-  sendMessage(message2);
-}
-
-module.exports.initJitterFix = function(interval){
-  setInterval(fixJitter, interval)
-}
