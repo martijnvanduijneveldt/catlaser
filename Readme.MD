@@ -52,7 +52,7 @@ Then, in the `Tools` menu, select the following values:
 * CPU Frequency: `160 MHz`
 * Upload Speed : `921600` (go lower if flashing failes)
 
-Change the following values by your own
+Change the following values by your own in `arduino_code/arduino_code.ino`
 ```cpp
 // Replace these variables
 const char* ssid = "YOUR_SSID_HERE";
