@@ -9,19 +9,21 @@ Okay not really a cat with laser eyes...
 ## Description
 Catlaser is a useless as it sounds, it controls a robot arm with a laser on it to play with your cats.
 
-## Initial idea & poc
+## Initial idea, poc and roadmap
 - Have a little node.js script to send commands over MQTT (less transport weight than HTTP)
 - Use EspEasy to control the servo motors
 
-But we had some lattency issues and servo jitter using EspEasy so we decided to write our own code which is a lot more lightweight
+But we had some lattency issues and servo jitter using EspEasy so we decided to write our own code which is a lot more lightweight.
+
+It is important to detach the servo motors to prevent them for jittering when wifi is trying to reconnect.
 
 
 ## Hardware
 
 | Reference | Product | Unit Price | Qty | Total |
 | --------- | ------- | ---------- | --- | ----- |
-| ESP8266   | Espressif ESP8266 Microcontroller | 2.00€ | 1 | 2.00€ |
-| IRF540    | Mosfet | 1.80€ | 1 | 1.80€ |
+| ESP8266   | Espressif ESP8266 Microcontroller (Wemos D1 Mini r3) | 2.00€ | 1 | 2.00€ |
+| IRF540    | Mosfet IRF540 | 1.80€ | 1 | 1.80€ |
 | SG90      | Servo motor | 2.00€ | 2 | 4.00€ |
 | | 4 DOF Acrylic Unassembled DIY Robot Arm DIY Kit for Arduino Maker Learning | 10.00€ | 1 | 10.00€ |
 | | 650nm 6mm 5V 5mW laser | 1.50€ | 1 | 1.50€
@@ -88,6 +90,7 @@ Waiting for ESP ...
 ## Demo
 
 ![Video][video]
+
 
 [video]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/video.gif "Video"
 [wiring]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/Sketch_bb.jpg "Wiring"
