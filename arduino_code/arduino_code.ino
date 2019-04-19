@@ -18,6 +18,9 @@ WiFiEventHandler gotIpEventHandler, disconnectedEventHandler;
 Servo myservo1;
 Servo myservo2;
 
+int servo1pin = D3;
+int servo2pin = D7;
+
 int stringToInt( byte* payload, unsigned int length){
   String inString = "";
   for(int i=0;i<length;i++){
@@ -42,7 +45,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }else{
       if(!myservo1.attached()){
         Serial.println("Servo 1 attached");
-        myservo1.attach();
+        myservo1.attach(servo1pin);
       }
       myservo1.write(intVal);
       delay(15);
@@ -54,7 +57,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }else{
       if(!myservo2.attached()){
         Serial.println("Servo 2 attached");
-        myservo2.attach();
+        myservo2.attach(servo2pin);
       }
       myservo2.write(intVal);
       delay(15);
@@ -120,16 +123,38 @@ void setup()
 {
  Serial.begin(115200);
  pinMode(D5, OUTPUT);
+ digitalWrite(D5,1);
+
+ initialServoPos();
 
  setup_wifi();
 
+
  client.setServer(mqtt_server, 1883);
  client.setCallback(callback);
+}
+
+void initialServoPos(){
+  // Set xAxis to 90 degress
+  myservo1.attach(servo1pin);
+  delay(15);
+  myservo1.write(90);
+  delay(15);
+  myservo1.detach();
+
+  // Set xAxis to 45 degress
+  myservo2.attach(servo2pin);
+  delay(15);
+  myservo2.write(45);
+  delay(15);
+  myservo2.detach();
 }
  
 void loop()
 {
  if (!client.connected()) {
+  myservo1.detach();
+  myservo2.detach();
   reconnect();
  }
  client.loop();
