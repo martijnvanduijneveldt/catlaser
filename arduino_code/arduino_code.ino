@@ -85,7 +85,7 @@ void reconnect() {
   Serial.print("failed, rc=");
   Serial.print(client.state());
   Serial.println(" try again in 1 seconds");
-  // Wait 5 seconds before retrying
+  // Wait 1 seconds before retrying
   delay(1000);
   }
  }
@@ -106,14 +106,15 @@ void setup_wifi() {
   }
   Serial.println("");
 
+  // Show message on getting ip
   gotIpEventHandler = WiFi.onStationModeGotIP([](const WiFiEventStationModeGotIP& event)
   {
     Serial.print("Station connected, IP: ");
     Serial.println(WiFi.localIP());
   });
 
-
-disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStationModeDisconnected& event)
+  // Show message on disconnect from ap
+  disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStationModeDisconnected& event)
   {
     Serial.println("Station disconnected");
   });
@@ -124,18 +125,21 @@ disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStat
 void setup()
 {
  Serial.begin(115200);
+
+ // Init laser
  pinMode(laserpin, OUTPUT);
  digitalWrite(laserpin,1);
 
  initialServoPos();
-
+ 
+ // Start wifi
  setup_wifi();
-
-
+ // Init mqtt server
  client.setServer(mqtt_server, 1883);
  client.setCallback(callback);
 }
 
+// Set initial position of servos
 void initialServoPos(){
   // Set xAxis to 90 degress
   myservo1.attach(servo1pin);
