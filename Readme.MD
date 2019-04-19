@@ -85,7 +85,11 @@ MQTT server started
 Waiting for ESP ...
 ```
 
+## Demo
 
+![Video][video]
+
+[video]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/video.gif "Video"
 [wiring]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/Sketch_bb.jpg "Wiring"
 [build]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/build.jpg "Build"
 [laser_cat]: https://pre00.deviantart.net/589d/th/pre/i/2017/071/e/2/laser_cat_by_hernanzuluaga-db21mnm.jpg "Laser cat by Hernanzuluaga" 
