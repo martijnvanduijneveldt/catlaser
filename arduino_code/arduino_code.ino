@@ -9,17 +9,19 @@
 const char* ssid = "YOUR_SSID_HERE";
 const char* password = "YOUR_PASSWORD_HERE";
 const char* mqtt_server = "YOUR_MQTT_SERVER_IP_HERE";
- 
+
+// Edit these at your own risk
+int laserpin = D5;
+int servo1pin = D3;
+int servo2pin = D7;
+
+// Do not touch the rest
 WiFiClient espClient;
 PubSubClient client(espClient);
-
 WiFiEventHandler gotIpEventHandler, disconnectedEventHandler;
 
 Servo myservo1;
 Servo myservo2;
-
-int servo1pin = D3;
-int servo2pin = D7;
 
 int stringToInt( byte* payload, unsigned int length){
   String inString = "";
@@ -63,7 +65,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       delay(15);
     }
  }else if(strcmp(topic,"laser") == 0){
-    digitalWrite(D5,intVal);
+    digitalWrite(laserpin, intVal);
  }
 }
  
@@ -122,8 +124,8 @@ disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStat
 void setup()
 {
  Serial.begin(115200);
- pinMode(D5, OUTPUT);
- digitalWrite(D5,1);
+ pinMode(laserpin, OUTPUT);
+ digitalWrite(laserpin,1);
 
  initialServoPos();
 
