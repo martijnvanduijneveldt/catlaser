@@ -27,17 +27,16 @@ But we had some lattency issues and servo jitter using EspEasy so we decided to 
 | | 650nm 6mm 5V 5mW laser | 1.50€ | 1 | 1.50€
 | **Total**  | | |  | **19,30€**|
 
-### Building the robot arm to control the laser
 
-```
-Insert image here
-```
-
-## Wiring
+### Wiring
 
 Wiring can be found in `resources/Sketch.fzz`
 
 ![Wiring][wiring]
+
+### Building the robot arm to control the laser
+
+![Build][build]
 
 ## Arduino Setup
 
@@ -88,5 +87,5 @@ Waiting for ESP ...
 
 
 [wiring]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/Sketch_bb.jpg "Wiring"
-
+[build]: https://raw.githubusercontent.com/martijnvanduijneveldt/catlaser/master/resources/build.jpg "Build"
 [laser_cat]: https://pre00.deviantart.net/589d/th/pre/i/2017/071/e/2/laser_cat_by_hernanzuluaga-db21mnm.jpg "Laser cat by Hernanzuluaga" 
