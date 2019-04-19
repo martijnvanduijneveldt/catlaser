@@ -46,9 +46,8 @@ function toggleLed(){
     topic: 'laser',
     payload: states.led.toString(),
   };
-  sendMessage(message, function() {
-    console.log('Toggling led');
-  });
+  console.log('Toggling led');
+  sendMessage(message);
 }
 module.exports.toggleLed = toggleLed;
 
